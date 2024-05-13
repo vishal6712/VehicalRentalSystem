@@ -3,7 +3,7 @@ function Login() {
       <div className="App">
     
       <h2>Login</h2>
-      <h3>Dnyaneshwar kangude</h3>
+      <h3>Vishal</h3>
   
       </div>
     );
