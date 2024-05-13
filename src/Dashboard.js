@@ -4,6 +4,7 @@ const Dashboard = () => {
   return (
     <div>
         <p>Onkar Tavate</p>
+        <p>Jitendra Nil</p>
     </div>
   )
 }
