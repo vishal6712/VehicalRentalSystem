@@ -1,4 +1,55 @@
+import axios from 'axios';
+import React, { useState } from 'react';
+import base_url from '../api/bootapi';
+
 function Register() {
+
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    confirmPassword: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    const user = {
+      email: formData.email,
+      password: formData.password,
+      firstName: formData.firstName,
+      lastName: formData.lastName
+      
+    };
+
+    try {
+      const response = await axios.post(`${base_url}/register`, user);
+      console.log("User registered successfully:", response.data);
+      alert("Registration successful!");
+    } catch (error) {
+      console.error("There was an error registering the user!", error.response);
+      alert("Registration failed!");
+    }
+  };
+
+
+
+
+
     return (
       <body
     class="flex font-poppins items-center justify-center dark:bg-gray-900 min-w-screen min-h-screen"
@@ -14,54 +65,66 @@ function Register() {
           <h1 class="pt-8 pb-6 font-bold text-5xl dark:text-gray-400 text-center cursor-default">
             Sign Up
           </h1>
-          <form action="#" method="post" class="space-y-4">
+
+
+          <form action="#" method="post" class="space-y-4" onSubmit={handleSubmit}>
           <div className='text-left'>
-              <label for="firstName" class="mb-2 dark:text-gray-400 text-lg">First Name</label>
+              <label htmlFor="firstName" class="mb-2 dark:text-gray-400 text-lg">First Name</label>
               <input
                 id="firstName"
                 class="border dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 p-3 shadow-md placeholder:text-base border-gray-300 rounded-lg w-full focus:scale-105 ease-in-out duration-300"
                 type="text"
                 placeholder="First Name"
+                value={formData.firstName}
+                onChange={handleChange}
                 required
               />
             </div>
             <div className='text-left'>
-              <label for="LastName" class="mb-2 dark:text-gray-400 text-lg">Last Name</label>
+              <label htmlFor="LastName" class="mb-2 dark:text-gray-400 text-lg">Last Name</label>
               <input
                 id="lastName"
                 class="border dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 p-3 shadow-md placeholder:text-base border-gray-300 rounded-lg w-full focus:scale-105 ease-in-out duration-300"
                 type="text"
                 placeholder="Last Name"
+                value={formData.lastName}
+                onChange={handleChange}
                 required
               />
             </div>
             <div className='text-left'>
-              <label for="email" class="mb-2 dark:text-gray-400 text-lg">Email</label>
+              <label htmlFor="email" class="mb-2 dark:text-gray-400 text-lg">Email</label>
               <input
                 id="email"
                 class="border dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 p-3 shadow-md placeholder:text-base border-gray-300 rounded-lg w-full focus:scale-105 ease-in-out duration-300"
                 type="email"
                 placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
                 required
               />
             </div>
             <div className='text-left'>
-              <label for="password" class="mb-2 dark:text-gray-400 text-lg">Password</label>
+              <label htmlFor="password" class="mb-2 dark:text-gray-400 text-lg">Password</label>
               <input
                 id="password"
                 class="border dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 p-3 mb-2 shadow-md placeholder:text-base border-gray-300 rounded-lg w-full focus:scale-105 ease-in-out duration-300"
                 type="password"
                 placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
                 required
               />
             </div>
             <div className='text-left'>
-              <label for="confirmPassword" class="mb-2 dark:text-gray-400 text-lg">Confirm Password</label>
+              <label htmlFor="confirmPassword" class="mb-2 dark:text-gray-400 text-lg">Confirm Password</label>
               <input
                 id="confirmPassword"
                 class="border dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 p-3 mb-2 shadow-md placeholder:text-base border-gray-300 rounded-lg w-full focus:scale-105 ease-in-out duration-300"
                 type="password"
                 placeholder="Confirm Password"
+                value={formData.confirmPassword}
+                  onChange={handleChange}
                 required
               />
             </div>

@@ -1,8 +1,8 @@
 
 import './App.css';
-import Dashboard from './Dashboard';
-import Login from './Login';
-import Register from './Register';
+import Dashboard from './component/Dashboard';
+import Login from './component/Login';
+import Register from './component/Register';
 
 function App() {
   return (
